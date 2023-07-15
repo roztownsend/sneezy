@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why am I sneezing?!</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">Why Am I Sneezing!?</h1>
+        <span class="header__tagline">The current hour's allergens and air quality at a glance. </span>
+        <form data-form>
+            <input type="text" placeholder="Enter any town, city or municipality in Europe" data-location>
+            <button type="submit">Get Forecast</button>
+        </form>
+    </header>
+        
+    <main>
+        <section class="forecast-header">
+                <h2 class="forecast__header-h2" data-return-location></h2>
+                <div class="forecast__timestamp" data-as-of-time></div>
+        </section>
+
+        <section>
+            <h3 class="forecast__title">Current Pollen Levels</h3>
+            <div class="forecast__cardspread" data-forecast-cardspread>
+                <template id="forecast-card">
+                <div class="forecast-card" data-forecast-card>
+                    <div class="forecast-card__content">
+                    <div class="forecast-card__allergen-label" data-pollen-label></div>
+                    <div class="forecast-card__allergen-level" data-pollen-level></div>
+                    <div class="forecast-card__allergen-digits">
+                        <span data-pollen-grains></span>
+                    </div>
+                    <div class="forecast-card__see-full" data-forecast-link></div>
+                    </div>
+                </div>
+                </template>
+            </div>
+            <div class="forecast__bottom">
+                <a class="dark-link" href="#" data-fullpollen-modal>See full-day pollen forecast.</a>
+            </div>
+            </div>
+            </div>
+            </section>
+
+            <section>
+                <h3 class="air-quality__title">Current Air Quality Data</h3>
+                <div class="air-quality__spread" data-aqi-spread>
+                    <template id="aqi-datapoint">
+                    <div class="air-quality__datapoint" data-aqi-datapoint>
+                        <div class="air-quality__label" data-aqi-label></div>
+                        <div class="air-quality__reading" data-aqi-reading>
+                            <span class="air-quality__level" data-aqi-level></span>
+                            (<span class="air-quality__digits" data-aqi-digits></span>)
+                        </div>
+                    </div>
+                    </div>
+                    </template>
+
+                </div>
+                <div class="air-quality__bottom">
+                    <a class="dark-link" href="#" data-aqi-modal>See full-day air quality forecast.</a>
+                </div>
+            </div>
+        </section>
+
+    <section class="hourly" data-modal-section>
+    <dialog class="forecast-modal" data-forecast-modal>
+        <div class="forecast-modal__close-row">
+            <div class="forecast-modal__close-x" data-close-modal></div>
+        </div>
+        <div class="hourly__header" data-hourly-header>
+            <h3 class="hourly__title" data-pollen-label></h3>
+            <div class="hourly__current-indicator">
+                <div class="box"></div>
+                <div class="definition">Indicates current hour</div>
+            </div>
+        </div>
+            <table class="hourly-table">
+                    <thead data-table-headers>
+                        <template id="hourly-table-headers">
+                            <th class="hourly-table-headers__label" data-header-label>
+                            </th>
+                        </template>
+                    </thead>
+                    <tbody class="hourly-table__tbody" data-hourly-table>
+                        <template id="hourly-table-row">
+                        <tr class="hourly-table__row" data-table-row>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+                </div>
+            </div>
+            </dialog>
+    </section>
+
+        <section class="daily-weather">
+            <div class="daily-weather__header">
+                <h3 class="daily-weather__title">Today's Weather</h3>
+                <span class="supplement">(This may have an impact on how bad your allergies are.)</span>
+            </div>
+                <div class="daily-weather__spread">
+                    <div class="daily-weather__category left-spacer">
+                        <div class="daily-weather__datapoint">
+                            <div class="daily-weather__label">High Temp</div>
+                            <div class="daily-weather__reading">
+                                <span data-high-temp></span>&deg;</div>
+                        </div>
+                        <div class="daily-weather__datapoint">
+                            <div class="daily-weather__label">Low Temp</div>
+                            <div class="daily-weather__reading">
+                                <span data-low-temp></span>&deg;</div>
+                        </div>
+                    </div>
+                    <div class="category">
+                        <div class="daily-weather__datapoint">
+                            <div class="daily-weather__label">Precipitation Chance</div>
+                            <div class="daily-weather__reading">
+                                <span data-precipitation-probability></span>%</div>
+                        </div>
+                        <div class="daily-weather__datapoint">
+                            <div class="daily-weather__label">Precipitation Sum</div>
+                            <div class="daily-weather__reading">
+                                <span data-precipitation-sum></span> mm</div>
+                        </div>
+                    </div>
+                    <div class="category">
+                        <div class="daily-weather__datapoint">
+                            <div class="daily-weather__label">Max Wind Speed</div>
+                            <div class="daily-weather__reading"><span data-max-windspeed></span> meters/s</div>
+                        </div>
+                        <div class="daily-weather__datapoint">
+                            <div class="daily-weather__label">Wind Direction</div>
+                            <div class="daily-weather__reading"><span data-wind-direction-name></span> (<span data-wind-direction></span>&deg;)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <h4>Citations and Acknowledgements</h4>
+        <div class="credits">
+            <p>I used the Open-Meteo Weather API at <a class="light-link" href="https://open-meteo.com/">open-meteo.com</a> and the CAMS Regional European air quality analysis and forecast data.</p>
+
+            <p>Required CAMS citation: METEO FRANCE, Institut national de l'environnement industriel et des risques (Ineris), Aarhus University, Norwegian Meteorological Institute (MET Norway), Jülich Institut für Energie- und Klimaforschung (IEK), Institute of Environmental Protection - National Research Institute (IEP-NRI), Koninklijk Nederlands Meteorologisch Instituut (KNMI), Nederlandse Organisatie voor toegepast-natuurwetenschappelijk onderzoek (TNO), Swedish Meteorological and Hydrological Institute (SMHI), Finnish Meteorological Institute (FMI), Italian National Agency for New Technologies, Energy and Sustainable Economic Development (ENEA) and Barcelona Supercomputing Center (BSC) (2022): CAMS European air quality forecasts, ENSEMBLE data. Copernicus Atmosphere Monitoring Service (CAMS) Atmosphere Data Store (ADS). (Updated per API call).</p>
+        </div>
+    </footer>
+</body>
+<script type="module" src="script.js"></script>
+</html>
