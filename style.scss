@@ -34,6 +34,12 @@
     border-radius: 12px;
 }
 
+@mixin pollen-background-picker($image, $position, $size) {
+    background-image: url("../public/images/#{$image}.jpg");
+    background-position: $position;
+    background-size: $size;
+}
+
 @mixin bg-spreads {
     background-color: hsla(var(--cardspreads));
     padding: .5em;
@@ -126,7 +132,7 @@ body {
     font-family: system-ui;
     display: grid;
     margin: 0;
-    grid-template-rows: auto, auto, auto, auto;
+    grid-template-rows: repeat(4, auto);
 }
 
 .body-scrolling {
@@ -237,9 +243,6 @@ button {
     word-wrap: none;
 }
 
-
-
-
 //Forecast Header 
 
 .forecast-header {
@@ -256,39 +259,27 @@ button {
 }
 
 .birch {
-    background-image: url("../images/birch.jpg");
-    background-position: bottom;
-    background-size: cover;
+    @include pollen-background-picker("birch", bottom, cover);
 }
 
 .alder {
-    background-image: url("../images/alder.jpg");
-    background-size: cover;
-    background-position: right;
+    @include pollen-background-picker("alder", right, cover);
 }
 
 .grass {
-    background-image: url("../images/grass.jpg");
-    background-position: bottom;
-    background-size: auto;
+    @include pollen-background-picker("grass", bottom, auto);
 }
 
 .mugwort {
-    background-image: url("../images/mugwort.jpg");
-    background-position: center;
-    background-size: auto;
+    @include pollen-background-picker("mugwort", center, auto);
 }
 
 .ragweed {
-    background-image: url("../images/ragweed.jpg");
-    background-position: top;
-    background-size: auto;
+    @include pollen-background-picker("ragweed", top, auto);
 }
 
 .olive {
-    background-image: url("../images/olive.jpg");
-    background-position: 10%;
-    background-size: auto;
+    @include pollen-background-picker("olive", 10%, auto)
 }
 
 .forecast__cardspread {
@@ -384,15 +375,18 @@ button {
     justify-content: flex-end;
     padding-bottom: .5em;
     background-color: hsla(var(--hue), 36%, 20%, .95);
-    position: sticky;
 }
 
 .forecast-modal__close-x {
+    width: 12%;
+}
+
+.forecast-modal__close-button {
+    background: 0;
+    border: 0;
+    width: fit-content; 
     cursor: pointer;
-    font-weight: bold;
-    text-align: right;
-    color: hsl(var(--header-footer));
-    padding: 1rem 1rem 0 0;
+
 }
 
 .hourly__header {

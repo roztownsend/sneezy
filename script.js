@@ -88,7 +88,7 @@ const currentSection = document.querySelector("[data-forecast-cardspread]");
 const pollenCard = document.getElementById("forecast-card");
 const forecastModal = document.querySelector("[data-forecast-modal]");
 const closeModal = document.querySelector("[data-close-modal");
-closeModal.textContent = "X";
+const closeModalButton = document.querySelector("[data-close-modal-button");
 
 //stop body scrolling when the modal is open
 const bodyScrolling = (isOpen) => {
@@ -128,6 +128,7 @@ function renderCards(
                 let isOpen = true;
                 bodyScrolling(isOpen);
                 forecastModal.showModal();
+                closeModalButton.blur();
             });
             setValues("pollen-grains",
                 `${pollenGrains} Grains/m³`,
@@ -322,7 +323,8 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
             hourlyTimestamps, hourlyPollenData, pollenKeys, currentHourTimestamp);
         let isOpen = true;
         bodyScrolling(isOpen);
-        forecastModal.showModal();}
+        forecastModal.showModal();
+        closeModalButton.blur();}
     );
 
     //render current hours's AQI
@@ -334,7 +336,8 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
             hourlyTimestamps, aqiFullDay, aqiKeys, currentHourTimestamp);
         let isOpen = true;
         bodyScrolling(isOpen);
-        forecastModal.showModal();}
+        forecastModal.showModal();
+        closeModalButton.blur();}
     );
 };
 
@@ -346,7 +349,6 @@ function renderDaily({
     precipSum, 
     windSpeed, 
     windDirection }) {
-        console.log(highTemp)
     const windDegrees = windDirection;
     setValues("high-temp", highTemp, document);
     setValues("low-temp", lowTemp, document);

@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why am I sneezing?!</title>
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="shortcut icon" href="#">
+    <link rel="icon" href="./public/leaf.svg">
 </head>
 <body>
     <header class="header">
         <h1 class="header__title">Why Am I Sneezing!?</h1>
-        <span class="header__tagline">The current hour's allergens and air quality at a glance. </span>
+        <span class="header__tagline">
+            The current hour's allergens and air quality at a glance.</span>
         <form data-form>
-            <input type="text" placeholder="Enter any town, city or municipality in Europe" data-location>
+            <input type="text" 
+                aria-label="Your location" 
+                placeholder="Enter any town, city or municipality in Europe" 
+                data-location>
             <button type="submit">Get Forecast</button>
         </form>
     </header>
@@ -30,8 +34,10 @@
                 <template id="forecast-card">
                 <div class="forecast-card" data-forecast-card>
                     <div class="forecast-card__content">
-                    <div class="forecast-card__allergen-label" data-pollen-label></div>
-                    <div class="forecast-card__allergen-level" data-pollen-level></div>
+                    <div class="forecast-card__allergen-label" 
+                        data-pollen-label></div>
+                    <div class="forecast-card__allergen-level" 
+                        data-pollen-level></div>
                     <div class="forecast-card__allergen-digits">
                         <span data-pollen-grains></span>
                     </div>
@@ -41,7 +47,8 @@
                 </template>
             </div>
             <div class="forecast__bottom">
-                <a class="dark-link" href="#" data-fullpollen-modal>See full-day pollen forecast.</a>
+                <a class="dark-link" href="#" 
+                    data-fullpollen-modal>See full-day pollen forecast.</a>
             </div>
             </div>
             </div>
@@ -63,7 +70,8 @@
 
                 </div>
                 <div class="air-quality__bottom">
-                    <a class="dark-link" href="#" data-aqi-modal>See full-day air quality forecast.</a>
+                    <a class="dark-link" href="#" 
+                        data-aqi-modal>See full-day air quality forecast.</a>
                 </div>
             </div>
         </section>
@@ -71,7 +79,29 @@
     <section class="hourly" data-modal-section>
     <dialog class="forecast-modal" data-forecast-modal>
         <div class="forecast-modal__close-row">
-            <div class="forecast-modal__close-x" data-close-modal></div>
+            <div class="forecast-modal__close-x" data-close-modal>
+                <button class="forecast-modal__close-button" 
+                    data-close-modal-button aria-label="Close">
+                    <svg width="28" height="24" viewBox="0 0 26 22" 
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.4688 0H3.15625C1.8623 0 0.8125 1.0498 
+                            0.8125 2.34375V19.5312C0.8125 20.8252 1.8623 21.875 
+                            3.15625 21.875H23.4688C24.7627 21.875 25.8125 
+                            20.8252 25.8125 19.5312V2.34375C25.8125 1.0498 
+                            24.7627 0 23.4688 0ZM19.3867 14.1846C19.6211 
+                            14.4189 19.6211 14.7998 19.3867 15.0342L17.4092 
+                            17.0117C17.1748 17.2461 16.7939 17.2461 16.5596 
+                            17.0117L13.3125 13.7354L10.0654 17.0117C9.83105 
+                            17.2461 9.4502 17.2461 9.21582 17.0117L7.23828 
+                            15.0342C7.00391 14.7998 7.00391 14.4189 7.23828 
+                            14.1846L10.5146 10.9375L7.23828 7.69043C7.00391 
+                            7.45605 7.00391 7.0752 7.23828 6.84082L9.21582 
+                            4.86328C9.4502 4.62891 9.83105 4.62891 10.0654 
+                            4.86328L13.3125 8.13965L16.5596 4.86328C16.7939 
+                            4.62891 17.1748 4.62891 17.4092 4.86328L19.3867 6.84082C19.6211 7.0752 19.6211 7.45605 19.3867 7.69043L16.1104 10.9375L19.3867 14.1846Z" fill="#b2d468"/>
+                        </svg>
+                </button>
+            </div>
         </div>
         <div class="hourly__header" data-hourly-header>
             <h3 class="hourly__title" data-pollen-label></h3>

@@ -26,7 +26,7 @@ body {
   font-family: system-ui;
   display: grid;
   margin: 0;
-  grid-template-rows: auto, auto, auto, auto;
+  grid-template-rows: repeat(4, auto);
 }
 
 .body-scrolling {
@@ -170,37 +170,37 @@ button {
 }
 
 .birch {
-  background-image: url("../images/birch.jpg");
+  background-image: url("../public/images/birch.jpg");
   background-position: bottom;
   background-size: cover;
 }
 
 .alder {
-  background-image: url("../images/alder.jpg");
-  background-size: cover;
+  background-image: url("../public/images/alder.jpg");
   background-position: right;
+  background-size: cover;
 }
 
 .grass {
-  background-image: url("../images/grass.jpg");
+  background-image: url("../public/images/grass.jpg");
   background-position: bottom;
   background-size: auto;
 }
 
 .mugwort {
-  background-image: url("../images/mugwort.jpg");
+  background-image: url("../public/images/mugwort.jpg");
   background-position: center;
   background-size: auto;
 }
 
 .ragweed {
-  background-image: url("../images/ragweed.jpg");
+  background-image: url("../public/images/ragweed.jpg");
   background-position: top;
   background-size: auto;
 }
 
 .olive {
-  background-image: url("../images/olive.jpg");
+  background-image: url("../public/images/olive.jpg");
   background-position: 10%;
   background-size: auto;
 }
@@ -309,15 +309,17 @@ button {
   justify-content: flex-end;
   padding-bottom: 0.5em;
   background-color: hsla(var(--hue), 36%, 20%, 0.95);
-  position: sticky;
 }
 
 .forecast-modal__close-x {
+  width: 12%;
+}
+
+.forecast-modal__close-button {
+  background: 0;
+  border: 0;
+  width: fit-content;
   cursor: pointer;
-  font-weight: bold;
-  text-align: right;
-  color: hsl(var(--header-footer));
-  padding: 1rem 1rem 0 0;
 }
 
 .hourly__header {
