@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why am I sneezing?!</title>
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" href="./public/leaf.svg">
+    <link rel="icon" href="./leaf.svg">
 </head>
-<body>
-    <header class="header">
+<body class="body-scrolling " data-body>
+    <header class="header" data-header>
         <h1 class="header__title">Why Am I Sneezing!?</h1>
         <span class="header__tagline">
             The current hour's allergens and air quality at a glance.</span>
@@ -21,7 +21,8 @@
             <button type="submit">Get Forecast</button>
         </form>
     </header>
-        
+     
+<div class="content hide-content" data-content>
     <main>
         <section class="forecast-header">
                 <h2 class="forecast__header-h2" data-return-location></h2>
@@ -50,8 +51,6 @@
                 <a class="dark-link" href="#" 
                     data-fullpollen-modal>See full-day pollen forecast.</a>
             </div>
-            </div>
-            </div>
             </section>
 
             <section>
@@ -65,16 +64,13 @@
                             (<span class="air-quality__digits" data-aqi-digits></span>)
                         </div>
                     </div>
+                </template>
                     </div>
-                    </template>
-
-                </div>
                 <div class="air-quality__bottom">
                     <a class="dark-link" href="#" 
                         data-aqi-modal>See full-day air quality forecast.</a>
                 </div>
-            </div>
-        </section>
+            </section>
 
     <section class="hourly" data-modal-section>
     <dialog class="forecast-modal" data-forecast-modal>
@@ -124,8 +120,6 @@
                     </template>
                 </tbody>
             </table>
-                </div>
-            </div>
             </dialog>
     </section>
 
@@ -180,6 +174,7 @@
             <p>Required CAMS citation: METEO FRANCE, Institut national de l'environnement industriel et des risques (Ineris), Aarhus University, Norwegian Meteorological Institute (MET Norway), Jülich Institut für Energie- und Klimaforschung (IEK), Institute of Environmental Protection - National Research Institute (IEP-NRI), Koninklijk Nederlands Meteorologisch Instituut (KNMI), Nederlandse Organisatie voor toegepast-natuurwetenschappelijk onderzoek (TNO), Swedish Meteorological and Hydrological Institute (SMHI), Finnish Meteorological Institute (FMI), Italian National Agency for New Technologies, Energy and Sustainable Economic Development (ENEA) and Barcelona Supercomputing Center (BSC) (2022): CAMS European air quality forecasts, ENSEMBLE data. Copernicus Atmosphere Monitoring Service (CAMS) Atmosphere Data Store (ADS). (Updated per API call).</p>
         </div>
     </footer>
+</div>
 </body>
 <script type="module" src="script.js"></script>
 </html>

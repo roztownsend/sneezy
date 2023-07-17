@@ -11,7 +11,7 @@ export function getTimezone(name) {
         })
     .catch(error => {
         if (error.response) {
-          // Handle specific HTTP response status codes
+          // Handle HTTP response status codes
           if (error.response.status === 404) {
             throw new Error("Can't find the location to get the timezone.");
           } else {

@@ -24,14 +24,15 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--darktext));
   font-family: system-ui;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   margin: 0;
-  grid-template-rows: repeat(4, auto);
 }
 
 .body-scrolling {
   overflow: hidden;
-  padding-right: 14px;
+  padding-right: 16px;
 }
 
 h2 {
@@ -79,9 +80,16 @@ h2, .h3, .forecast__timestamp {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: hsl(var(--dark));
+  background-color: hsl(var(--darktable));
   color: hsl(var(--header-footer));
   padding-bottom: 2rem;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 .header h1 {
   font-size: clamp(1.5rem, 2.5vw, 5rem);
@@ -94,6 +102,46 @@ h2, .h3, .forecast__timestamp {
 .header .header__tagline {
   font-size: 1rem;
   padding: 0 3% 2% 3%;
+}
+
+.header-rollback {
+  height: 40%;
+  transition: height 0.5s ease-in-out;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  flex-grow: 1;
+}
+
+.hide-content {
+  opacity: 0;
+  margin-top: 100vh;
+}
+
+.show-content {
+  opacity: 1;
+  margin-top: auto;
+  transition: all 0.5s ease-in;
+}
+
+.hide-new-content {
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.show-new-content {
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 section {
@@ -170,37 +218,37 @@ button {
 }
 
 .birch {
-  background-image: url("../public/images/birch.jpg");
+  background-image: url("../images/birch.jpg");
   background-position: bottom;
   background-size: cover;
 }
 
 .alder {
-  background-image: url("../public/images/alder.jpg");
+  background-image: url("../images/alder.jpg");
   background-position: right;
   background-size: cover;
 }
 
 .grass {
-  background-image: url("../public/images/grass.jpg");
+  background-image: url("../images/grass.jpg");
   background-position: bottom;
   background-size: auto;
 }
 
 .mugwort {
-  background-image: url("../public/images/mugwort.jpg");
+  background-image: url("../images/mugwort.jpg");
   background-position: center;
   background-size: auto;
 }
 
 .ragweed {
-  background-image: url("../public/images/ragweed.jpg");
+  background-image: url("../images/ragweed.jpg");
   background-position: top;
   background-size: auto;
 }
 
 .olive {
-  background-image: url("../public/images/olive.jpg");
+  background-image: url("../images/olive.jpg");
   background-position: 10%;
   background-size: auto;
 }
@@ -297,8 +345,8 @@ button {
   margin: auto;
   background-color: hsl(var(--darktable));
   color: hsl(var(--lighttext));
-  height: 500px;
-  width: 500px;
+  height: 80vh;
+  width: 50vw;
   overflow: hidden;
   border-radius: 12px;
 }
@@ -358,8 +406,8 @@ button {
 .hourly-table {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  height: 500px;
+  height: 100%;
+  width: 100%;
   position: sticky;
   top: 0;
   background-color: hsla(var(--hue), 58%, 12%, 0.95);
@@ -374,6 +422,8 @@ button {
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  height: max-content;
+  padding-bottom: 25vh;
 }
 .hourly-table tr {
   display: flex;
@@ -492,7 +542,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: hsl(var(--dark));
+  background-color: hsl(var(--darktable));
   color: hsl(var(--header-footer));
   margin-top: 3em;
   padding-top: 0.5em;

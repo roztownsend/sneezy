@@ -2,21 +2,27 @@ import { getTimezone } from "./forecast";
 import { getAirQuality } from "./forecast";
 import { getDaily } from "./forecast";
 
+const formElement = document.querySelector("[data-form]");
 const inputLocationElement = document.querySelector("[data-location]");
 const displayLocationElement = document.querySelector("[data-return-location]");
-inputLocationElement.value = "Undenäs";
+// inputLocationElement.value = "Undenäs";
 
 let hourlyData;
 let latitude;
 let longitude;
 let locationName;
 let countryName;
+let hasPreviousForecast = false;
 
 async function fetchData() {
     try {
         const locationInput = inputLocationElement.value;
         const response = await getTimezone(locationInput);
         console.log(response.data);
+        if (response.data.results === undefined) {
+            alert("We can't find your location. The search only takes English characters, so make sure to check your spelling.");
+            throw new Error("Location not found");
+        }
         latitude = response.data.results[0].latitude;
         longitude = response.data.results[0].longitude;
         locationName = response.data.results[0].name;
@@ -29,18 +35,81 @@ async function fetchData() {
         
         const dailyResponse = await getDaily(latitude, longitude);
         renderDaily(dailyResponse.daily);
-        
+        return true;
     } catch (error) {
         console.error(error);
-        alert("Error occurred during data fetching!");
+        return false;
     }
 };
 
-// const submitHandler = event => {
-//     event.preventDefault();
-    fetchData();
-// };
+window.addEventListener("unload", () => {
+    formElement.reset();
+})
 
+
+//stop body scrolling when the modal is open or on initial load
+const bodyScrolling = (cantScroll) => {
+    if (cantScroll) {
+    document.body.classList.add("body-scrolling");
+    } else {
+    document.body.classList.remove("body-scrolling");
+    }
+};
+
+
+const bodyElement = document.querySelector("[data-body]");
+const headerElement = document.querySelector("[data-header]");
+const contentElement = document.querySelector("[data-content]");
+const sectionsElements = document.querySelectorAll("section");
+
+const submitHandler = event => {
+    event.preventDefault();
+    if (hasPreviousForecast) {
+        sectionsElements.forEach(section => {
+            section.classList.remove("show-new-content");
+          });
+        sectionsElements.forEach(section => {
+            section.classList.add("hide-new-content");
+          });
+          setTimeout(() => {
+              fetchData()
+              .then(success => {
+                if (success) {
+                    sectionsElements.forEach(section => {
+                      section.classList.add("show-new-content");
+                      section.classList.remove("hide-new-content");
+                  });
+                } else {
+                    return;
+                }
+              })
+        }, 500);
+        console.log("has previous forecast");
+    } else {
+        console.log("first forecast!")
+        fetchData()
+        .then(success => {
+            if (success) {
+                let cantScroll = false;
+                bodyScrolling(cantScroll);
+                headerElement.classList.add("header-rollback");
+                setTimeout(() => {
+                    headerElement.style.position = "relative";
+                    contentElement.classList.add("show-content");
+                    contentElement.classList.remove("hide-content");
+                }, 550)
+                hasPreviousForecast = true;
+            } else {
+                hasPreviousForecast = false;
+                return;
+            }
+          });
+    }
+
+    window.scrollTo({top: 0, behavior: "smooth"});
+};
+
+formElement.addEventListener("submit", submitHandler);
 
 //set values and code more easily
 function setValues(selector, value, { parent = document } = {}) {
@@ -90,15 +159,6 @@ const forecastModal = document.querySelector("[data-forecast-modal]");
 const closeModal = document.querySelector("[data-close-modal");
 const closeModalButton = document.querySelector("[data-close-modal-button");
 
-//stop body scrolling when the modal is open
-const bodyScrolling = (isOpen) => {
-    if (isOpen) {
-    document.body.classList.add("body-scrolling");
-    } else {
-    document.body.classList.remove("body-scrolling");
-    }
-}
-
 function renderCards(
     currentHour, 
     pollenKeys, 
@@ -125,8 +185,8 @@ function renderCards(
                 event.preventDefault();
                 const keyArray = [key];
                 renderReadingsTable(hourlyTimestamps, hourlyPollenData, keyArray, currentHourTimestamp);
-                let isOpen = true;
-                bodyScrolling(isOpen);
+                let cantScroll = true;
+                bodyScrolling(cantScroll);
                 forecastModal.showModal();
                 closeModalButton.blur();
             });
@@ -204,8 +264,8 @@ const currentDateFormatted = currentDateRaw.toLocaleString([],
 closeModal.addEventListener("click", () => {
     tableHeadersSection.innerHTML = "";
     hourlySection.innerHTML = "";
-    let isOpen = false;
-    bodyScrolling(isOpen);
+    let cantScroll = false;
+    bodyScrolling(cantScroll);
     forecastModal.close();
 });
 
@@ -215,9 +275,7 @@ function outOfSeasonFilter(fullDayObject, objectKey) {
         return objectKey;
     } else {
     let filteredArray;
-    console.log(objectKey);
         for (objectKey in fullDayObject) {
-            console.log(objectKey)
             const readingArray = fullDayObject[objectKey][objectKey];
             if (readingArray.every(item => item === null)) {
                 delete fullDayObject[objectKey];
@@ -250,6 +308,7 @@ function renderReadingsTable(
             let formattedTd = "";
             let fullRowTds;
             let levelColorClass;
+            let currentHoursRow;
             const hourlyTableElement = hourlyRow.content.cloneNode(true);
             if (objectLength === 1) {
                 setPollenBackgroundClass(
@@ -284,8 +343,9 @@ function renderReadingsTable(
                         fullRowTds = rowTimestampTd + cleanedDataPoints.join("");
                         setCode("table-row", fullRowTds, { parent: hourlyTableElement });
             if (rowTimestamp == currentHourTimestamp) {
-                hourlyTableElement.querySelector("[data-table-row]").classList
-                .add("hourly-table__row-current");
+                let currentHoursRow = hourlyTableElement.querySelector("[data-table-row]");
+                currentHoursRow.classList.add("hourly-table__row-current");
+                hourlySection.scrollIntoView(currentHoursRow, { behavior: "instant", block: "center" });
             };
             hourlySection.append(hourlyTableElement);
             formattedArray = Array(objectLength);
@@ -321,8 +381,8 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
         event.preventDefault();
         renderReadingsTable(
             hourlyTimestamps, hourlyPollenData, pollenKeys, currentHourTimestamp);
-        let isOpen = true;
-        bodyScrolling(isOpen);
+        let cantScroll = true;
+        bodyScrolling(cantScroll);
         forecastModal.showModal();
         closeModalButton.blur();}
     );
@@ -334,8 +394,8 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
         event.preventDefault();
         renderReadingsTable(
             hourlyTimestamps, aqiFullDay, aqiKeys, currentHourTimestamp);
-        let isOpen = true;
-        bodyScrolling(isOpen);
+        let cantScroll = true;
+        bodyScrolling(cantScroll);
         forecastModal.showModal();
         closeModalButton.blur();}
     );
@@ -381,5 +441,3 @@ function getWindDirection(windDegrees) {
         return 'Degree value is invalid.';
     };
 };
-
-    // formElement.addEventListener("submit", submitHandler);

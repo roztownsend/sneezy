@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: hsl(var(--dark));
+    background-color: hsl(var(--darktable));
     color: hsl(var(--header-footer));
 }
 
@@ -35,7 +35,7 @@
 }
 
 @mixin pollen-background-picker($image, $position, $size) {
-    background-image: url("../public/images/#{$image}.jpg");
+    background-image: url("../images/#{$image}.jpg");
     background-position: $position;
     background-size: $size;
 }
@@ -130,14 +130,15 @@ body {
     background-color: hsl(var(--background));
     color: hsl(var(--darktext));
     font-family: system-ui;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     margin: 0;
-    grid-template-rows: repeat(4, auto);
 }
 
 .body-scrolling {
         overflow: hidden;
-        padding-right: 14px;
+        padding-right: 16px;
 }
 
 h2 {
@@ -174,6 +175,13 @@ h2, .h3, .forecast__timestamp {
     text-align: center;
     @include header-footer;
     padding-bottom: 2rem;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
    
     h1 {
         font-size: clamp(1.5rem, 2.5vw, 5rem);
@@ -186,6 +194,46 @@ h2, .h3, .forecast__timestamp {
         font-size: clamp(.5rem, 1rem, 2rem);
         padding: 0 3% 2% 3%;
     }
+}
+
+.header-rollback {
+    height: 40%;
+    transition: height .5s ease-in-out;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    flex-grow: 1;
+}
+
+.hide-content {
+    opacity: 0;
+    margin-top: 100vh;
+}
+
+.show-content {
+    opacity: 1;
+    margin-top: auto;
+    transition: all .5s ease-in;
+}
+
+.hide-new-content {
+    opacity: 0;
+    transition: all .3s ease-out;
+}
+
+.show-new-content {
+    opacity: 1;
+    transition: all .3s ease-in;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 section {
@@ -361,13 +409,11 @@ button {
     margin: auto;
     background-color: hsl(var(--darktable));
     color: hsl(var(--lighttext));
-    height: 500px;
-    width: 500px;
+    height: 80vh;
+    width: 50vw;
     overflow: hidden;
     @include rounder;
 }
-
-//to-do: change to icon
 
 .forecast-modal__close-row {
     width: 100%;
@@ -426,8 +472,8 @@ button {
 .hourly-table {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
+    height: 100%;
+    width: 100%;
     position: sticky;
     top: 0;
     background-color: hsla(var(--hue), 58%, 12%, 0.95);    
@@ -443,6 +489,8 @@ button {
         display: flex;
         flex-direction: column;
         overflow: scroll;
+        height: max-content;
+        padding-bottom: 25vh;
     }
 
     tr {
