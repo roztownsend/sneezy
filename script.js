@@ -5,7 +5,6 @@ import { getDaily } from "./forecast";
 const formElement = document.querySelector("[data-form]");
 const inputLocationElement = document.querySelector("[data-location]");
 const displayLocationElement = document.querySelector("[data-return-location]");
-// inputLocationElement.value = "Undenäs";
 
 let hourlyData;
 let latitude;
@@ -46,7 +45,6 @@ window.addEventListener("unload", () => {
     formElement.reset();
 })
 
-
 //stop body scrolling when the modal is open or on initial load
 const bodyScrolling = (cantScroll) => {
     if (cantScroll) {
@@ -56,11 +54,21 @@ const bodyScrolling = (cantScroll) => {
     }
 };
 
+let currentHoursRow;
+let hourlySection = document.querySelector("[data-hourly-table]");
+
+const scrollToRow = () => {
+currentHoursRow = hourlySection.getElementsByClassName("hourly-table__row-current")[0];
+hourlySection.scrollTo(0, currentHoursRow.offsetTop - 300);
+}
 
 const bodyElement = document.querySelector("[data-body]");
 const headerElement = document.querySelector("[data-header]");
 const contentElement = document.querySelector("[data-content]");
 const sectionsElements = document.querySelectorAll("section");
+
+//to-do: calc scrollbar width and subtract from body
+
 
 const submitHandler = event => {
     event.preventDefault();
@@ -131,7 +139,8 @@ const levelColorMapping = {
     high: "high",
     poor: "poor",
     hazardous: "hazardous",
-    extremely_poor: "extremely-poor"
+    "extremely poor": "extremely-poor",
+    "out of season": "out-of-season"
 };
 
 function setLevelColors(selector, readingLevel, levelElement) {
@@ -189,6 +198,7 @@ function renderCards(
                 bodyScrolling(cantScroll);
                 forecastModal.showModal();
                 closeModalButton.blur();
+                scrollToRow();
             });
             setValues("pollen-grains",
                 `${pollenGrains} Grains/m³`,
@@ -239,6 +249,7 @@ function renderTableHeaders(fullDayObject, objectKey) {
         });
         return;
     } else {
+        tableHeadersSection.innerHTML = "";    
         for (objectKey in fullDayObject) {
             const headerLabel = fullDayObject[objectKey][`${objectKey}_label`];
             gatheredHeaders.push(headerLabel);
@@ -253,13 +264,11 @@ function renderTableHeaders(fullDayObject, objectKey) {
 };
 
 const modalSection = document.querySelector("[data-modal-section]");
-const hourlySection = document.querySelector("[data-hourly-table]");
 const hourlyRow = document.getElementById("hourly-table-row");
 const hourlyHeader = document.querySelector("[data-pollen-label]");
 const currentDateRaw = new Date();
 const currentDateFormatted = currentDateRaw.toLocaleString([], 
     {day: "numeric", weekday: "long", month: "long"});
-
     
 closeModal.addEventListener("click", () => {
     tableHeadersSection.innerHTML = "";
@@ -286,6 +295,7 @@ function outOfSeasonFilter(fullDayObject, objectKey) {
         return filteredArray;
         }
     }
+
     
 function renderReadingsTable(
     hourlyTimestamps, 
@@ -308,7 +318,6 @@ function renderReadingsTable(
             let formattedTd = "";
             let fullRowTds;
             let levelColorClass;
-            let currentHoursRow;
             const hourlyTableElement = hourlyRow.content.cloneNode(true);
             if (objectLength === 1) {
                 setPollenBackgroundClass(
@@ -323,6 +332,7 @@ function renderReadingsTable(
                 <td>${rowReading}</td>
                 `;
             } else if (objectLength > 1) {
+                    forecastModal.classList = "forecast-modal";
                 for (objectKey in fullDayObject) {
                     hourlyHeader.textContent = `Full day forecast: ${currentDateFormatted}`;
                     rowLevel = fullDayObject[objectKey][`${objectKey}_level`][i];
@@ -343,13 +353,14 @@ function renderReadingsTable(
                         fullRowTds = rowTimestampTd + cleanedDataPoints.join("");
                         setCode("table-row", fullRowTds, { parent: hourlyTableElement });
             if (rowTimestamp == currentHourTimestamp) {
-                let currentHoursRow = hourlyTableElement.querySelector("[data-table-row]");
+                const previousCurrentHoursRow = hourlySection.querySelector(".hourly-table__row-current");
+                if (previousCurrentHoursRow) {
+                    previousCurrentHoursRow.classList.remove("hourly-table__row-current");}
+                currentHoursRow = hourlyTableElement.querySelector("[data-table-row]");
                 currentHoursRow.classList.add("hourly-table__row-current");
-                hourlySection.scrollIntoView(currentHoursRow, { behavior: "instant", block: "center" });
             };
             hourlySection.append(hourlyTableElement);
-            formattedArray = Array(objectLength);
-    }
+        }
 };
         
 const fullPollensModalLink = document.querySelector("[data-fullpollen-modal]");
@@ -384,7 +395,9 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
         let cantScroll = true;
         bodyScrolling(cantScroll);
         forecastModal.showModal();
-        closeModalButton.blur();}
+        closeModalButton.blur();
+        scrollToRow();
+        }
     );
 
     //render current hours's AQI
@@ -397,7 +410,9 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
         let cantScroll = true;
         bodyScrolling(cantScroll);
         forecastModal.showModal();
-        closeModalButton.blur();}
+        closeModalButton.blur();
+        scrollToRow();
+    }
     );
 };
 
@@ -441,3 +456,12 @@ function getWindDirection(windDegrees) {
         return 'Degree value is invalid.';
     };
 };
+
+const backToTopButton = document.querySelector("[data-back-to-top]")
+
+backToTopButton.addEventListener("click", function() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
