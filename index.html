@@ -129,7 +129,16 @@
                 <div class="daily-weather__supplement">(This may have an impact on how bad your allergies are.)</div>
             </div>
                 <div class="daily-weather__spread">
-                    <div class="daily-weather__category left-spacer">
+                    <div class="daily-weather__category-weathercode">
+                        <div class="daily-weather__weathercode-info">
+                            <div class="daily-weather__weather-info-card">
+                            <div class="daily-weather__label weather-icon" data-weather-icon></div>
+                            <div class="daily-weather__reading">
+                                <span data-weather-label></span></div>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="daily-weather__category">
                         <div class="daily-weather__datapoint">
                             <div class="daily-weather__label">High Temp</div>
                             <div class="daily-weather__reading">
@@ -141,7 +150,7 @@
                                 <span data-low-temp></span>&deg;</div>
                         </div>
                     </div>
-                    <div class="category">
+                    <div class="daily-weather__category">
                         <div class="daily-weather__datapoint">
                             <div class="daily-weather__label">Precipitation Chance</div>
                             <div class="daily-weather__reading">
@@ -153,7 +162,7 @@
                                 <span data-precipitation-sum></span> mm</div>
                         </div>
                     </div>
-                    <div class="category">
+                    <div class="daily-weather__category">
                         <div class="daily-weather__datapoint">
                             <div class="daily-weather__label">Max Wind Speed</div>
                             <div class="daily-weather__reading"><span data-max-windspeed></span> meters/s</div>
@@ -161,9 +170,9 @@
                         <div class="daily-weather__datapoint">
                             <div class="daily-weather__label">Wind Direction</div>
                             <div class="daily-weather__reading"><span data-wind-direction-name></span> (<span data-wind-direction></span>&deg;)</div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
         <section class="back-to-top">
         <button class="back-to-top__button" data-back-to-top>Back to Top 

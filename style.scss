@@ -4,16 +4,16 @@
 }
 
 :root {
-    --hue: 79;
     --background: var(--hue) 36% 90%;
-    --darktext: var(--hue) 16% 12%;
-    --lighttext: var(--hue) 26% 85%;
-    --header-footer: var(--hue) 35% 82%;
-    --dark: var(--hue) 30% 17%;
     --cardspreads: var(--hue) 15% 20%;
+    --dark: var(--hue) 30% 17%;
     --darktable: var(--hue) 28% 12%;
+    --darktext: var(--hue) 16% 12%;
+    --focus: var(--hue) 80% 42%;
+    --header-footer: var(--hue) 35% 82%;
+    --hue: 79;
     --levelsl: 70%, 60%;
-    --focus: var(--hue) 80% 42%;      
+    --lighttext: var(--hue) 26% 85%;
 }
 
 *:focus {   
@@ -21,13 +21,13 @@
 }   
 
 @mixin header-footer {
-    width: 100%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
     align-items: center;
     background-color: hsl(var(--darktable));
     color: hsl(var(--header-footer));
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
 }
 
 @mixin rounder {
@@ -42,8 +42,16 @@
 
 @mixin bg-spreads {
     background-color: hsla(var(--cardspreads));
-    padding: .5rem;
     color: hsl(var(--lighttext));
+    padding: .5rem;
+}
+
+@mixin spread {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    place-content: center;
 }
 
 @mixin bg-card-content {
@@ -55,8 +63,8 @@
     padding: .25rem 0 2rem .5rem;
 
     @media only screen and (max-width: 767px) and (orientation: portrait) {
-        text-align: center;
         padding: .25rem 0 1.5rem 0;
+        text-align: center;
     }
 }
 
@@ -71,9 +79,9 @@
 }
 
 @mixin form-bits {
-    padding: .75rem;
-    margin-top: .35rem;
     border: 2px solid hsl(var(--hue), 56%, 32%);
+    margin-top: .35rem;
+    padding: .75rem;
 }
 
 @mixin header-title-with-undertext {
@@ -90,10 +98,10 @@
 }
 
 @mixin dark-link {
+    border-bottom: 2px solid;
     color: hsl(var(--darktext));
     font-weight: 500;
     text-decoration: none;
-    border-bottom: 2px solid;
         
     &:hover, &:active, &:focus {
         border-bottom: 2px dotted;
@@ -101,8 +109,8 @@
 }
 
 @mixin label-font {
-    font-size: clamp(1rem, 1.25rem, 1.5rem);
     color: hsl(var(--background));
+    font-size: clamp(1rem, 1.25rem, 1.5rem);
     text-transform: capitalize;
     
     @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -125,28 +133,19 @@
     text-transform: uppercase;
 }
 
-@mixin spread {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    grid-auto-flow: row;
-    grid-gap: 1rem;
-    place-content: center;
-}
-
-#scrollbarMeasurer {
-    width: 100px;
-    height: 100px;
-    overflow: scroll;
-    visibility: hidden;
-    position: absolute;
+@mixin weather-card {
+    background-color: hsl(var(--darktable));
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
 }
 
 body {
     background-color: hsl(var(--background));
     color: hsl(var(--darktext));
-    font-family: system-ui;
     display: flex;
     flex-direction: column;
+    font-family: system-ui;
     height: 100vh;
     margin: 0;
 }
@@ -174,9 +173,9 @@ h2, .h3, .forecast__timestamp {
     padding-left: .25rem;
     
     @media only screen and (max-width: 767px) and (orientation: portrait) {
-        text-align: center;
-        padding-left: 0;
         padding-bottom: .75rem;
+        padding-left: 0;
+        text-align: center;
     }
 }
 
@@ -193,21 +192,21 @@ h2, .h3, .forecast__timestamp {
 //header and form
 
 .header {
-    grid-row: 1;
-    text-align: center;
     @include header-footer;
+    align-items: center;
+    grid-row: 1;
     height: 100vh;
     justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
     left: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
     z-index: 2;
    
     h1 {
+        @include header-title-with-undertext;
         font-size: clamp(1.5rem, 2.5vw, 5rem);
         text-transform: uppercase;
-        @include header-title-with-undertext;
     }
 
     .header__tagline {
@@ -233,18 +232,18 @@ h2, .h3, .forecast__timestamp {
 .content {
     display: flex;
     flex-direction: column;
-    margin-top: 0;
     flex-grow: 1;
+    margin-top: 0;
 }
 
 .hide-content {
-    opacity: 0;
     margin-top: 100vh;
+    opacity: 0;
 }
 
 .show-content {
-    opacity: 1;
     margin-top: auto;
+    opacity: 1;
     transition: all .5s ease-in;
 }
 
@@ -260,9 +259,9 @@ h2, .h3, .forecast__timestamp {
 
 main {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     flex-grow: 1;
+    justify-content: space-between;
 }
 
 section {
@@ -274,9 +273,9 @@ section {
 }
 
 .forecast-header {
-    padding-top: 1em;
-    padding-bottom: 2em;
     margin-bottom: 1em;
+    padding-bottom: 2em;
+    padding-top: 1em;
 
     @media only screen and (max-width: 767px) and (orientation: portrait) {
         padding: .5em .5em 1em .5em;
@@ -289,30 +288,30 @@ section {
 }
 
 .forecast__timestamp {
+    font-size: .75rem;
     margin: 0;
     padding-left: .25rem;
-    font-size: .75rem;
 }
 
 form {
-    width: 100%;
-    flex-wrap: wrap;
-    font-weight: bold;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    font-weight: bold;
     gap: .5em;
-    padding: 0 3% 1rem 3%;
     justify-content: center;
+    padding: 0 3% 1rem 3%;
+    width: 100%;
 }
 
 input {
-    width: max(300px, 70%);
-    height: 2rem;
-    flex-grow: 1 0 0;
-    color: hsl(var(--dark));
-    background-color: hsl(var(--background));
     @include form-bits;
     @include rounder;
+    background-color: hsl(var(--background));
+    color: hsl(var(--dark));
+    flex-grow: 1 0 0;
+    height: 2rem;
+    width: max(300px, 70%);
 
 
 }
@@ -324,16 +323,16 @@ input {
 }
 
 .button-submit {
-    width: max(300px, 20%);
-    height: 2rem;
-    flex-grow: 1 0 0;
     @include form-bits;
     @include rounder;
-    cursor: pointer;
-    padding: 0 1rem 0 1rem;
-    font-weight: bold;
     background-color: hsl(var(--header-footer));
     color: hsl(var(--dark));
+    cursor: pointer;
+    flex-grow: 1 0 0;
+    font-weight: bold;
+    height: 2rem;
+    padding: 0 1rem 0 1rem;
+    width: max(300px, 20%);
     word-wrap: none;
 }
 
@@ -397,11 +396,11 @@ input {
 
 .forecast-card__content {
     @include bg-card-content;
-    grid-row: 2;
-    display: flex;
-    min-width: 130px;
-    flex-direction: column;
     border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+    grid-row: 2;
+    min-width: 130px;
     padding: 2% 2% 4% 4.5%;
 
     a {
@@ -431,38 +430,38 @@ input {
 
 
 .low, .good {
-    color: hsl(155, var(--levelsl));
     @include level-font-tds;
+    color: hsl(155, var(--levelsl));
 }
 
 .fair {
-    color: hsl(100, var(--levelsl));
     @include level-font-tds;
+    color: hsl(100, var(--levelsl));
 }
 
 .medium, .moderate {
-    color: hsl(69, var(--levelsl));
     @include level-font-tds;
+    color: hsl(69, var(--levelsl));
 }
 
 .high, .poor {
-    color: hsl(45, var(--levelsl));
     @include level-font-tds;
+    color: hsl(45, var(--levelsl));
 }
 
 .very-poor {
-    color: hsl(12, var(--levelsl));
     @include level-font-tds;
+    color: hsl(12, var(--levelsl));
 }
 
 .hazardous, .extremely-poor {
-    color: hsl(350, var(--levelsl));
     @include level-font-tds;
+    color: hsl(350, var(--levelsl));
 }
 
 .out-of-season {
-    @include out-of-season-fade;
     @include level-font-tds;
+    @include out-of-season-fade;
 }
 
 .out-of-season__grains {
@@ -481,15 +480,15 @@ dialog::backdrop {
 }
 
 .forecast-modal {
-    border: 0;
-    padding: 0;
-    margin: auto;
+    @include rounder;
     background-color: hsl(var(--darktable));
+    border: 0;
     color: hsl(var(--lighttext));
     height: 80vh;
-    width: 60vw;
+    margin: auto;
     overflow: hidden;
-    @include rounder;
+    padding: 0;
+    width: 60vw;
 
     @media only screen and (max-width: 767px) {
         height: 100vh;
@@ -498,74 +497,75 @@ dialog::backdrop {
 }
 
 .forecast-modal__close-row {
-    width: 100%;
+    background-color: hsla(var(--hue), 36%, 20%, .95);
     display: flex;
     justify-content: flex-end;
     padding: .5rem .5rem 0 0;
-    background-color: hsla(var(--hue), 36%, 20%, .95);
+    width: 100%;
 }
 
 .forecast-modal__close-button {
     background: 0;
     border: 0;
-    width: fit-content; 
     cursor: pointer;
+    width: fit-content; 
 
 }
 
 .hourly__header {
-    position: sticky;
+    align-items: center;
+    background-color: hsla(var(--hue), 36%, 20%, .95);
     color: hsl(var(--lighttext));
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding: 0 .5rem 0 .5rem;
-    background-color: hsla(var(--hue), 36%, 20%, .95);
+    position: sticky;
+
     h3 {
-        text-transform: capitalize;
         color: hsl(var(--lighttext));
+        text-transform: capitalize;
     }
 }
 
 .hourly__current-indicator {
     display: flex;
     gap: .5em;
-    margin: 0;
     justify-content: center;
+    margin: 0;
     padding-bottom: .5em;
 
     .box {
         @include highlighted-hour;
-        width: 1.25rem;
         height: 1.25rem;
+        width: 1.25rem;
     }
     
     .definition {
         font-size: .75rem;
+        padding-top: .2em;
         width: fit-content;
-        padding-top: .20em;
     }
 }
 
 .hourly-table {
+    background-color: hsla(var(--hue), 58%, 12%, 0.95);    
+    border-collapse: collapse;
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
-    background-color: hsla(var(--hue), 58%, 12%, 0.95);    
-    border-collapse: collapse;
     padding: 0;
+    width: 100%;
 
     thead {
-        position: sticky;
+        background-color: hsla(var(--hue), 56%, 62%, 0.95);
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
         grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+        padding: .5em .5em .5em 0;
         place-content: center;
         place-items: center;
-        background-color: hsla(var(--hue), 56%, 62%, 0.95);
-        padding: .5em .5em .5em 0;
+        position: sticky;
     }
 
     th {
@@ -579,12 +579,12 @@ dialog::backdrop {
     }
 
     tr {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
-        grid-auto-flow: row;
-        padding: .5em .5em .5em 0;
-        margin-right: -1em;
         border-top: 1px solid hsl(var(--cardspreads));
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+        margin-right: -1em;
+        padding: .5em .5em .5em 0;
         
         td:first-child {
             display: flex;
@@ -614,8 +614,9 @@ dialog::backdrop {
 
 .air-quality__spread {
     @include bg-spreads;
-    @include spread;
     @include rounder;
+    @include spread;
+    padding: 1rem;
 }
 
 .air-quality__label {
@@ -628,8 +629,8 @@ dialog::backdrop {
 
 .air-quality__reading {
     @include level-font;
-    display: flex;
     align-items: baseline;
+    display: flex;
 }
 
 .air-quality__bottom {
@@ -639,9 +640,15 @@ dialog::backdrop {
 //Daily Weather
 
 .daily-weather__spread {
-    @include bg-spreads;
-    @include spread;
     @include rounder;
+    align-items: center;
+    background-color: hsla(var(--hue), 36%, 20%, .55);
+    color: hsl((var(--lighttext)));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .daily-weather__header {
@@ -652,33 +659,55 @@ dialog::backdrop {
     }
 
     @media only screen and (max-width: 767px) and (orientation: portrait) {
+        align-items: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
 
         h3 {
             padding-bottom: .25rem;
         }
         .daily-weather__supplement {
-            text-align: center;
             font-size: .75rem;
+            text-align: center;
             width: 80%;
         }
     }
 }
 
-.daily-weather__card-wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 2em;
+.daily-weather__category-weathercode {
+    @include rounder;
+    @include weather-card;
+    align-items: center;
+    background-color: hsl(var(--darktable));
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
     width: 100%;
-    padding: 1em 0 1em 0;
-    margin: auto;
+}
+
+.daily-weather__weather-info-card {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.weather-icon {
+    img {width: 100px;}
+}
+
+.daily-weather__category {
+    @include rounder;
+    @include weather-card;
+    flex-grow: 1;
+    padding: 1rem;
 }
 
 .daily-weather__datapoint {
-    padding-bottom: 1em;
+    background-color: hsl(var(--darktable));
+    flex-grow: 1;
+    padding: .5rem;
 }
 
 .daily-weather__label {
@@ -690,34 +719,30 @@ dialog::backdrop {
 }
 
 .back-to-top {
-    padding-top: 1em;
     display: flex;
     justify-content: center;
+    padding-top: 3rem;
 }
 
 .back-to-top__button {
-    border: 0;
     background: none;
-    font-size: 1rem;
+    border: 0;
     color: hsl(var(--dark));
-    font-weight: bold;
     cursor: pointer;
-}
-
-.back-to-top__icon {
-    padding-top: .25rem;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 footer {
     @include header-footer;
-    margin-top: 3em;
-    padding-top: .5em;
-    padding-bottom: 2rem;
-    text-align: center;
     color: hsl(var(--lighttext));
+    margin-top: 3em;
+    padding-bottom: 2rem;
+    padding-top: .5em;
+    text-align: center;
 }
 
 .credits {
-    width: 85%;
     font-size: .75rem;
+    width: 85%;
 }

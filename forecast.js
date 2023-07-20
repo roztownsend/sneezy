@@ -273,9 +273,64 @@ export function getDaily(latitude, longitude) {
     })    
 }
 
+function addIconMapping(values, icon) {
+    values.forEach(value => {
+        weatherMapping.set(value, icon)
+    })
+}
+
+const weatherMapping = new Map()
+addIconMapping([0, 1], "sun")
+addIconMapping([2], "cloud-sun")
+addIconMapping([3], "cloud")
+addIconMapping([25], "fog")
+addIconMapping([48], "fog-with-frost")
+addIconMapping([51, 53, 55], "cloud-rain")
+addIconMapping([51, 53, 55, 56, 57], "cloud-rain")
+addIconMapping([61, 63, 65, 66, 67, 80, 81, 82], "cloud-showers-heavy")
+addIconMapping([71, 73, 75, 77], "snowflake")
+addIconMapping([85, 86], "cloud-snow")
+addIconMapping([95, 96, 99], "cloud-bolt")
+
+
+function getIcon(iconCode) {
+    return `weather-icons/${weatherMapping.get(iconCode)}.svg`
+  }
+
+const weathercodeLabels = {
+    0: "Clear sky",
+    1: "Mostly clear",
+    2: "Partly cloudy",
+    3: "Overcast",
+    45: "Foggy",
+    48: "Foggy with frost",
+    51: "Light drizzle",
+    53: "Moderate drizzle",
+    55: "Dense drizzle",
+    56: "Light freezing drizzle",
+    57: "Dense freezing drizzle",
+    61: "Light rain",
+    63: "Moderate rain",
+    65: "Heavy rain",
+    66: "Light freezing rain",
+    67: "Heavy freezing rain",
+    71: "Light snowfall",
+    73: "Moderate snowfall",
+    75: "Heavy snowfall",
+    77: "Snow/ice grains",
+    80: "Light rain showers",
+    81: "Moderate rain showers",
+    82: "Heavy rain showers",
+    85: "Light snow showers",
+    86: "Heavy snow showers",
+    95: "Thunderstorms",
+    96: "Thunderstorms with light hail",
+    99: "Thunderstorm with heavy hail"
+}
+
 function parseDaily({ daily }) {
     const {
-        weathercode: [weathercode],
+        weathercode: [weatherCode],
         temperature_2m_max: [maxTemp], 
         temperature_2m_min: [minTemp], 
         precipitation_sum: [precipSum],
@@ -283,8 +338,12 @@ function parseDaily({ daily }) {
         windspeed_10m_max: [maxWindspeed], 
         winddirection_10m_dominant: [windDirection]
     } = daily;
+    const weatherLabel = weathercodeLabels[weatherCode];
+    const weatherIcon = getIcon(weatherCode);
     return {
-        weathercode: weathercode,
+        weatherCode: weatherCode,
+        weatherIcon: weatherIcon,
+        weatherLabel: weatherLabel,
         highTemp: maxTemp,
         lowTemp: minTemp,
         precipProbability: maxPrecip,

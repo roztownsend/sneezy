@@ -3,36 +3,28 @@
 }
 
 :root {
-  --hue: 79;
   --background: var(--hue) 36% 90%;
-  --darktext: var(--hue) 16% 12%;
-  --lighttext: var(--hue) 26% 85%;
-  --header-footer: var(--hue) 35% 82%;
-  --dark: var(--hue) 30% 17%;
   --cardspreads: var(--hue) 15% 20%;
+  --dark: var(--hue) 30% 17%;
   --darktable: var(--hue) 28% 12%;
-  --levelsl: 70%, 60%;
+  --darktext: var(--hue) 16% 12%;
   --focus: var(--hue) 80% 42%;
+  --header-footer: var(--hue) 35% 82%;
+  --hue: 79;
+  --levelsl: 70%, 60%;
+  --lighttext: var(--hue) 26% 85%;
 }
 
 *:focus {
   outline: 2px dotted hsl(var(--focus));
 }
 
-#scrollbarMeasurer {
-  width: 100px;
-  height: 100px;
-  overflow: scroll;
-  visibility: hidden;
-  position: absolute;
-}
-
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--darktext));
-  font-family: system-ui;
   display: flex;
   flex-direction: column;
+  font-family: system-ui;
   height: 100vh;
   margin: 0;
 }
@@ -62,17 +54,17 @@ h2, .h3, .forecast__timestamp {
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   .forecast__title, .air-quality__title, .hourly_title, .daily-weather__title {
-    text-align: center;
-    padding-left: 0;
     padding-bottom: 0.75rem;
+    padding-left: 0;
+    text-align: center;
   }
 }
 
 .dark-link {
+  border-bottom: 2px solid;
   color: hsl(var(--darktext));
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 2px solid;
 }
 .dark-link:hover, .dark-link:active, .dark-link:focus {
   border-bottom: 2px dotted;
@@ -86,28 +78,28 @@ h2, .h3, .forecast__timestamp {
 }
 
 .header {
-  grid-row: 1;
-  text-align: center;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: hsl(var(--darktable));
   color: hsl(var(--header-footer));
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+  align-items: center;
+  grid-row: 1;
   height: 100vh;
   justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
   left: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
   z-index: 2;
 }
 .header h1 {
-  font-size: clamp(1.5rem, 2.5vw, 5rem);
-  text-transform: uppercase;
   margin: 0;
   padding: 1em 0 0.25em 0;
+  font-size: clamp(1.5rem, 2.5vw, 5rem);
+  text-transform: uppercase;
 }
 .header .header__tagline {
   font-size: 1rem;
@@ -131,18 +123,18 @@ h2, .h3, .forecast__timestamp {
 .content {
   display: flex;
   flex-direction: column;
-  margin-top: 0;
   flex-grow: 1;
+  margin-top: 0;
 }
 
 .hide-content {
-  opacity: 0;
   margin-top: 100vh;
+  opacity: 0;
 }
 
 .show-content {
-  opacity: 1;
   margin-top: auto;
+  opacity: 1;
   transition: all 0.5s ease-in;
 }
 
@@ -158,9 +150,9 @@ h2, .h3, .forecast__timestamp {
 
 main {
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: space-between;
 }
 
 section {
@@ -173,9 +165,9 @@ section {
 }
 
 .forecast-header {
-  padding-top: 1em;
-  padding-bottom: 2em;
   margin-bottom: 1em;
+  padding-bottom: 2em;
+  padding-top: 1em;
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   .forecast-header {
@@ -190,32 +182,32 @@ section {
 }
 
 .forecast__timestamp {
+  font-size: 0.75rem;
   margin: 0;
   padding-left: 0.25rem;
-  font-size: 0.75rem;
 }
 
 form {
-  width: 100%;
-  flex-wrap: wrap;
-  font-weight: bold;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  font-weight: bold;
   gap: 0.5em;
-  padding: 0 3% 1rem 3%;
   justify-content: center;
+  padding: 0 3% 1rem 3%;
+  width: 100%;
 }
 
 input {
-  width: max(300px, 70%);
-  height: 2rem;
-  flex-grow: 1 0 0;
-  color: hsl(var(--dark));
-  background-color: hsl(var(--background));
-  padding: 0.75rem;
-  margin-top: 0.35rem;
   border: 2px solid hsl(var(--hue), 56%, 32%);
+  margin-top: 0.35rem;
+  padding: 0.75rem;
   border-radius: 12px;
+  background-color: hsl(var(--background));
+  color: hsl(var(--dark));
+  flex-grow: 1 0 0;
+  height: 2rem;
+  width: max(300px, 70%);
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -224,18 +216,18 @@ input {
   }
 }
 .button-submit {
-  width: max(300px, 20%);
-  height: 2rem;
-  flex-grow: 1 0 0;
-  padding: 0.75rem;
-  margin-top: 0.35rem;
   border: 2px solid hsl(var(--hue), 56%, 32%);
+  margin-top: 0.35rem;
+  padding: 0.75rem;
   border-radius: 12px;
-  cursor: pointer;
-  padding: 0 1rem 0 1rem;
-  font-weight: bold;
   background-color: hsl(var(--header-footer));
   color: hsl(var(--dark));
+  cursor: pointer;
+  flex-grow: 1 0 0;
+  font-weight: bold;
+  height: 2rem;
+  padding: 0 1rem 0 1rem;
+  width: max(300px, 20%);
   word-wrap: none;
 }
 
@@ -245,9 +237,9 @@ input {
 
 .forecast__cardspread {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   grid-auto-flow: row;
   grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   place-content: center;
 }
 @media only screen and (min-width: 768px) and (max-width: 1179px) {
@@ -312,11 +304,11 @@ input {
 .forecast-card__content {
   background-color: hsla(var(--hue), 56%, 17%, 0.8);
   color: hsl(var(--lighttext));
-  grid-row: 2;
-  display: flex;
-  min-width: 130px;
-  flex-direction: column;
   border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  grid-row: 2;
+  min-width: 130px;
   padding: 2% 2% 4% 4.5%;
 }
 .forecast-card__content a {
@@ -330,8 +322,8 @@ input {
 }
 
 .forecast-card__allergen-label {
-  font-size: 1.25rem;
   color: hsl(var(--background));
+  font-size: 1.25rem;
   text-transform: capitalize;
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -351,51 +343,51 @@ input {
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   .forecast__bottom {
-    text-align: center;
     padding: 0.25rem 0 1.5rem 0;
+    text-align: center;
   }
 }
 
 .low, .good {
-  color: hsl(155, var(--levelsl));
   font-weight: bold;
   text-transform: uppercase;
+  color: hsl(155, var(--levelsl));
 }
 
 .fair {
-  color: hsl(100, var(--levelsl));
   font-weight: bold;
   text-transform: uppercase;
+  color: hsl(100, var(--levelsl));
 }
 
 .medium, .moderate {
-  color: hsl(69, var(--levelsl));
   font-weight: bold;
   text-transform: uppercase;
+  color: hsl(69, var(--levelsl));
 }
 
 .high, .poor {
-  color: hsl(45, var(--levelsl));
   font-weight: bold;
   text-transform: uppercase;
+  color: hsl(45, var(--levelsl));
 }
 
 .very-poor {
-  color: hsl(12, var(--levelsl));
   font-weight: bold;
   text-transform: uppercase;
+  color: hsl(12, var(--levelsl));
 }
 
 .hazardous, .extremely-poor {
-  color: hsl(350, var(--levelsl));
   font-weight: bold;
   text-transform: uppercase;
+  color: hsl(350, var(--levelsl));
 }
 
 .out-of-season {
-  opacity: 0.8;
   font-weight: bold;
   text-transform: uppercase;
+  opacity: 0.8;
 }
 
 .out-of-season__grains {
@@ -413,15 +405,15 @@ dialog::backdrop {
 }
 
 .forecast-modal {
-  border: 0;
-  padding: 0;
-  margin: auto;
+  border-radius: 12px;
   background-color: hsl(var(--darktable));
+  border: 0;
   color: hsl(var(--lighttext));
   height: 80vh;
-  width: 60vw;
+  margin: auto;
   overflow: hidden;
-  border-radius: 12px;
+  padding: 0;
+  width: 60vw;
 }
 @media only screen and (max-width: 767px) {
   .forecast-modal {
@@ -431,72 +423,72 @@ dialog::backdrop {
 }
 
 .forecast-modal__close-row {
-  width: 100%;
+  background-color: hsla(var(--hue), 36%, 20%, 0.95);
   display: flex;
   justify-content: flex-end;
   padding: 0.5rem 0.5rem 0 0;
-  background-color: hsla(var(--hue), 36%, 20%, 0.95);
+  width: 100%;
 }
 
 .forecast-modal__close-button {
   background: 0;
   border: 0;
-  width: fit-content;
   cursor: pointer;
+  width: fit-content;
 }
 
 .hourly__header {
-  position: sticky;
+  align-items: center;
+  background-color: hsla(var(--hue), 36%, 20%, 0.95);
   color: hsl(var(--lighttext));
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   padding: 0 0.5rem 0 0.5rem;
-  background-color: hsla(var(--hue), 36%, 20%, 0.95);
+  position: sticky;
 }
 .hourly__header h3 {
-  text-transform: capitalize;
   color: hsl(var(--lighttext));
+  text-transform: capitalize;
 }
 
 .hourly__current-indicator {
   display: flex;
   gap: 0.5em;
-  margin: 0;
   justify-content: center;
+  margin: 0;
   padding-bottom: 0.5em;
 }
 .hourly__current-indicator .box {
   background-color: hsl(var(--hue), 56%, 35%);
   color: hsl(var(--darktable));
-  width: 1.25rem;
   height: 1.25rem;
+  width: 1.25rem;
 }
 .hourly__current-indicator .definition {
   font-size: 0.75rem;
-  width: fit-content;
   padding-top: 0.2em;
+  width: fit-content;
 }
 
 .hourly-table {
+  background-color: hsla(var(--hue), 58%, 12%, 0.95);
+  border-collapse: collapse;
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
-  background-color: hsla(var(--hue), 58%, 12%, 0.95);
-  border-collapse: collapse;
   padding: 0;
+  width: 100%;
 }
 .hourly-table thead {
-  position: sticky;
+  background-color: hsla(var(--hue), 56%, 62%, 0.95);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
   grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+  padding: 0.5em 0.5em 0.5em 0;
   place-content: center;
   place-items: center;
-  background-color: hsla(var(--hue), 56%, 62%, 0.95);
-  padding: 0.5em 0.5em 0.5em 0;
+  position: sticky;
 }
 .hourly-table th {
   color: hsl(var(--darktext));
@@ -507,12 +499,12 @@ dialog::backdrop {
   padding-bottom: 50vh;
 }
 .hourly-table tr {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
-  grid-auto-flow: row;
-  padding: 0.5em 0.5em 0.5em 0;
-  margin-right: -1em;
   border-top: 1px solid hsl(var(--cardspreads));
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+  margin-right: -1em;
+  padding: 0.5em 0.5em 0.5em 0;
 }
 .hourly-table tr td:first-child {
   display: flex;
@@ -535,19 +527,20 @@ dialog::backdrop {
 
 .air-quality__spread {
   background-color: hsla(var(--cardspreads));
-  padding: 0.5rem;
   color: hsl(var(--lighttext));
+  padding: 0.5rem;
+  border-radius: 12px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   grid-auto-flow: row;
   grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   place-content: center;
-  border-radius: 12px;
+  padding: 1rem;
 }
 
 .air-quality__label {
-  font-size: 1.25rem;
   color: hsl(var(--background));
+  font-size: 1.25rem;
   text-transform: capitalize;
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -564,8 +557,8 @@ dialog::backdrop {
   font-size: 1.25rem;
   font-weight: bold;
   text-transform: uppercase;
-  display: flex;
   align-items: baseline;
+  display: flex;
 }
 
 .air-quality__bottom {
@@ -573,21 +566,21 @@ dialog::backdrop {
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   .air-quality__bottom {
-    text-align: center;
     padding: 0.25rem 0 1.5rem 0;
+    text-align: center;
   }
 }
 
 .daily-weather__spread {
-  background-color: hsla(var(--cardspreads));
-  padding: 0.5rem;
-  color: hsl(var(--lighttext));
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  grid-auto-flow: row;
-  grid-gap: 1rem;
-  place-content: center;
   border-radius: 12px;
+  align-items: center;
+  background-color: hsla(var(--hue), 36%, 20%, 0.55);
+  color: hsl(var(--lighttext));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .daily-weather__header {
@@ -598,37 +591,65 @@ dialog::backdrop {
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
   .daily-weather__header {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
   }
   .daily-weather__header h3 {
     padding-bottom: 0.25rem;
   }
   .daily-weather__header .daily-weather__supplement {
-    text-align: center;
     font-size: 0.75rem;
+    text-align: center;
     width: 80%;
   }
 }
 
-.daily-weather__card-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2em;
+.daily-weather__category-weathercode {
+  border-radius: 12px;
+  background-color: hsl(var(--darktable));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  background-color: hsl(var(--darktable));
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
   width: 100%;
-  padding: 1em 0 1em 0;
-  margin: auto;
+}
+
+.daily-weather__weather-info-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.weather-icon img {
+  width: 100px;
+}
+
+.daily-weather__category {
+  border-radius: 12px;
+  background-color: hsl(var(--darktable));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1;
+  padding: 1rem;
 }
 
 .daily-weather__datapoint {
-  padding-bottom: 1em;
+  background-color: hsl(var(--darktable));
+  flex-grow: 1;
+  padding: 0.5rem;
 }
 
 .daily-weather__label {
-  font-size: 1.25rem;
   color: hsl(var(--background));
+  font-size: 1.25rem;
   text-transform: capitalize;
 }
 @media only screen and (max-width: 767px) and (orientation: portrait) {
@@ -644,40 +665,36 @@ dialog::backdrop {
 }
 
 .back-to-top {
-  padding-top: 1em;
   display: flex;
   justify-content: center;
+  padding-top: 3rem;
 }
 
 .back-to-top__button {
-  border: 0;
   background: none;
-  font-size: 1rem;
+  border: 0;
   color: hsl(var(--dark));
-  font-weight: bold;
   cursor: pointer;
-}
-
-.back-to-top__icon {
-  padding-top: 0.25rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 footer {
-  width: 100%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: hsl(var(--darktable));
   color: hsl(var(--header-footer));
-  margin-top: 3em;
-  padding-top: 0.5em;
-  padding-bottom: 2rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
   color: hsl(var(--lighttext));
+  margin-top: 3em;
+  padding-bottom: 2rem;
+  padding-top: 0.5em;
+  text-align: center;
 }
 
 .credits {
-  width: 85%;
   font-size: 0.75rem;
+  width: 85%;
 }/*# sourceMappingURL=style.css.map */

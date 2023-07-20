@@ -418,6 +418,9 @@ function renderPollenAndAqi(hourlyData, currentTimezone, locationName, countryNa
 
 //Render today's weather
 function renderDaily({ 
+    weatherCode,
+    weatherIcon,
+    weatherLabel,
     highTemp, 
     lowTemp, 
     precipProbability, 
@@ -425,6 +428,8 @@ function renderDaily({
     windSpeed, 
     windDirection }) {
     const windDegrees = windDirection;
+    setCode("weather-icon", `<img src="${weatherIcon}">`, document);
+    setValues("weather-label", weatherLabel, document);
     setValues("high-temp", highTemp, document);
     setValues("low-temp", lowTemp, document);
     setValues("precipitation-probability", precipProbability, document);
