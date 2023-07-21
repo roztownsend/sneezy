@@ -693,8 +693,19 @@ dialog::backdrop {
     padding: 1rem;
 }
 
+@keyframes icon-shift {
+    0% {
+      transform: translateX(-20px);
+    }
+    100% {
+      transform: translateX(20px);
+    }
+  }
+
 .weather-icon {
-    img {width: 100px;}
+    img {
+        animation: icon-shift 3s infinite alternate;  
+        width: 100px;}
 }
 
 .daily-weather__category {

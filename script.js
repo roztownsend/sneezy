@@ -1,4 +1,4 @@
-import { getTimezone } from "./forecast";
+import { getLocation } from "./forecast";
 import { getAirQuality } from "./forecast";
 import { getDaily } from "./forecast";
 
@@ -16,17 +16,21 @@ let hasPreviousForecast = false;
 async function fetchData() {
     try {
         const locationInput = inputLocationElement.value;
-        const response = await getTimezone(locationInput);
+        const response = await getLocation(locationInput);
         console.log(response.data);
         if (response.data.results === undefined) {
             alert("We can't find your location. The search only takes English characters, so make sure to check your spelling.");
             throw new Error("Location not found");
-        }
+        };
         latitude = response.data.results[0].latitude;
         longitude = response.data.results[0].longitude;
         locationName = response.data.results[0].name;
         countryName = response.data.results[0].country;
-        
+        const timezone = response.data.results[0].timezone;
+        if (!timezone.startsWith("Europe")) {
+            alert(`We see that ${locationName}, ${countryName} is outside of Europe. We only have forecasts available for Europe at this time. Please check back soon.`);
+            throw new Error("Location outside Europe.")
+        };
         const airQualityResponse = await getAirQuality(latitude, longitude);
         const currentTimezone = airQualityResponse.timezone;
         hourlyData = airQualityResponse.hourly;

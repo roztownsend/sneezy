@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getTimezone(name) {
+export function getLocation(name) {
     return axios
     .get("https://geocoding-api.open-meteo.com/v1/search",
         {params: {
