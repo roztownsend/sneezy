@@ -25,3 +25,5 @@ yarn-error.log*
 /src/images/
 images/
 weather-icons/
+sneezy/
+vite.config.js

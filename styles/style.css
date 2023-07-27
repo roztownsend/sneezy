@@ -451,6 +451,11 @@ dialog::backdrop {
   color: hsl(var(--lighttext));
   text-transform: capitalize;
 }
+@media only screen and (max-width: 449px) and (orientation: portrait) {
+  .hourly__header h3 {
+    text-align: center;
+  }
+}
 
 .hourly__current-indicator {
   display: flex;
@@ -489,6 +494,12 @@ dialog::backdrop {
   place-content: center;
   place-items: center;
   position: sticky;
+}
+@media only screen and (max-width: 449px) and (orientation: portrait) {
+  .hourly-table thead {
+    font-size: 0.75rem;
+    padding: 0.5em 0 0.5em 0;
+  }
 }
 .hourly-table th {
   color: hsl(var(--darktext));
@@ -530,12 +541,15 @@ dialog::backdrop {
   color: hsl(var(--lighttext));
   padding: 0.5rem;
   border-radius: 12px;
-  display: grid;
-  grid-auto-flow: row;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  place-content: center;
-  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  justify-content: flex-start;
+}
+
+.air-quality__datapoint {
+  flex-grow: 1;
 }
 
 .air-quality__label {
@@ -579,8 +593,8 @@ dialog::backdrop {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  justify-content: center;
   padding: 2rem;
+  justify-content: center;
 }
 
 .daily-weather__header {

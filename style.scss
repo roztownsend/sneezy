@@ -46,12 +46,19 @@
     padding: .5rem;
 }
 
-@mixin spread {
+@mixin spread-grid {
     display: grid;
     grid-auto-flow: row;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     place-content: center;
+}
+
+@mixin spread-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 @mixin bg-card-content {
@@ -346,7 +353,7 @@ input {
 //current hour's forecast
 
 .forecast__cardspread {
-    @include spread;
+    @include spread-grid;
 
     @media only screen and (min-width: 768px) and (max-width: 1179px) {
         grid-template-columns: repeat(3, 1fr);
@@ -525,6 +532,9 @@ dialog::backdrop {
     h3 {
         color: hsl(var(--lighttext));
         text-transform: capitalize;
+        @media only screen and (max-width: 449px) and (orientation: portrait) {
+        text-align: center;
+       }
     }
 }
 
@@ -566,11 +576,18 @@ dialog::backdrop {
         place-content: center;
         place-items: center;
         position: sticky;
+        
+        @media only screen and (max-width: 449px) and (orientation: portrait) {
+            font-size: .75rem;
+            padding: .5em 0 .5em 0;
+       }
+
     }
 
     th {
          color: hsl(var(--darktext));
          text-align: center;
+
     }
 
     tbody {
@@ -615,8 +632,12 @@ dialog::backdrop {
 .air-quality__spread {
     @include bg-spreads;
     @include rounder;
-    @include spread;
-    padding: 1rem;
+    @include spread-flex;
+    justify-content: flex-start;
+}
+
+.air-quality__datapoint {
+    flex-grow: 1;
 }
 
 .air-quality__label {
@@ -644,11 +665,8 @@ dialog::backdrop {
     align-items: center;
     background-color: hsla(var(--hue), 36%, 20%, .55);
     color: hsl((var(--lighttext)));
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    @include spread-flex;
     justify-content: center;
-    padding: 2rem;
 }
 
 .daily-weather__header {
