@@ -15,9 +15,8 @@ let hasPreviousForecast = false;
 
 async function fetchData() {
     try {
-        const locationInput = inputLocationElement.value;
+        const locationInput = inputLocationElement.value.trim();
         const response = await getLocation(locationInput);
-        console.log(response.data);
         if (response.data.results === undefined) {
             alert("We can't find your location. The search only takes English characters, so make sure to check your spelling.");
             throw new Error("Location not found");
@@ -96,9 +95,7 @@ const submitHandler = event => {
                 }
               })
         }, 500);
-        console.log("has previous forecast");
     } else {
-        console.log("first forecast!")
         fetchData()
         .then(success => {
             if (success) {

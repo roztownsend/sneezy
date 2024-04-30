@@ -211,6 +211,9 @@ input {
 }
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
+  input::-moz-placeholder {
+    text-align: center;
+  }
   input, input::placeholder {
     text-align: center;
   }
@@ -266,37 +269,37 @@ input {
 }
 
 .birch {
-  background-image: url("../images/birch.jpg");
+  background-image: url("/images/birch.jpg");
   background-position: bottom;
   background-size: cover;
 }
 
 .alder {
-  background-image: url("../images/alder.jpg");
+  background-image: url("/images/alder.jpg");
   background-position: right;
   background-size: cover;
 }
 
 .grass {
-  background-image: url("../images/grass.jpg");
+  background-image: url("/images/grass.jpg");
   background-position: bottom;
   background-size: auto;
 }
 
 .mugwort {
-  background-image: url("../images/mugwort.jpg");
+  background-image: url("/images/mugwort.jpg");
   background-position: center;
   background-size: auto;
 }
 
 .ragweed {
-  background-image: url("../images/ragweed.jpg");
+  background-image: url("/images/ragweed.jpg");
   background-position: top;
   background-size: auto;
 }
 
 .olive {
-  background-image: url("../images/olive.jpg");
+  background-image: url("/images/olive.jpg");
   background-position: 10%;
   background-size: auto;
 }
@@ -434,6 +437,7 @@ dialog::backdrop {
   background: 0;
   border: 0;
   cursor: pointer;
+  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -473,6 +477,7 @@ dialog::backdrop {
 .hourly__current-indicator .definition {
   font-size: 0.75rem;
   padding-top: 0.2em;
+  width: -moz-fit-content;
   width: fit-content;
 }
 

@@ -18,7 +18,7 @@ export function getLocation(name) {
             throw new Error("An error occurred during the API request.");
           }
         } else {
-          throw new Error("An error occurred while trying to communitcate with the server.");
+          throw new Error("An error occurred while trying to communicate with the server.");
         }
       });
 };
@@ -294,7 +294,7 @@ addIconMapping([95, 96, 99], "cloud-bolt")
 
 
 function getIcon(iconCode) {
-    return `weather-icons/${weatherMapping.get(iconCode)}.svg`
+    return `./weather-icons/${weatherMapping.get(iconCode)}.svg`
   }
 
 const weathercodeLabels = {
